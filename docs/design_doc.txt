@@ -1,0 +1,3 @@
+src/main/java/com/project/qhbh_kh/controllers để lưu các controller, sau này có thể chia ra thành các folder con để phân nhóm các controllers với mục đích tổ chức project clean hơn
+
+src/main/resource/views để lưu các file fxml 
