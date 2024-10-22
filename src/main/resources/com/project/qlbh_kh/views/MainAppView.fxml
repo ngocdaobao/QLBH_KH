@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.TreeView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.StackPane?>
+
+<BorderPane fx:id="mainBorderPane" prefHeight="586.0" prefWidth="744.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/21" fx:controller="com.project.qlbh_kh.controllers.MainAppController">
+   <left>
+      <TreeView fx:id="treeView" prefHeight="586.0" prefWidth="171.0" />
+   </left>
+   <center>
+      <StackPane fx:id="contentArea" />
+   </center>
+</BorderPane>
