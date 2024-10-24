@@ -18,7 +18,7 @@
       <GridPane hgap="10.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" vgap="10.0" BorderPane.alignment="CENTER">
          <columnConstraints>
             <ColumnConstraints halignment="LEFT" hgrow="ALWAYS" maxWidth="1.7976931348623157E308" />
-            <ColumnConstraints halignment="LEFT" hgrow="ALWAYS" maxWidth="1.7976931348623157E308" />
+            <ColumnConstraints halignment="LEFT" hgrow="ALWAYS" />
             <ColumnConstraints halignment="LEFT" hgrow="ALWAYS" maxWidth="1.7976931348623157E308" />
             <ColumnConstraints halignment="LEFT" hgrow="ALWAYS" maxWidth="1.7976931348623157E308" />
          </columnConstraints>
@@ -57,7 +57,7 @@
                <font>
                   <Font size="20.0" />
                </font></Label>
-            <ComboBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <ComboBox GridPane.columnIndex="1" GridPane.rowIndex="2" />
          </children>
       </GridPane>
    </top>
