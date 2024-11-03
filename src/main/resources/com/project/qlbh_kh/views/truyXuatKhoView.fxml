@@ -21,7 +21,7 @@
             <ColumnConstraints halignment="LEFT" hgrow="ALWAYS" maxWidth="1.7976931348623157E308" />
             <ColumnConstraints halignment="LEFT" hgrow="ALWAYS" maxWidth="1.7976931348623157E308" />
             <ColumnConstraints halignment="LEFT" hgrow="ALWAYS" maxWidth="1.7976931348623157E308" />
-            <ColumnConstraints halignment="LEFT" hgrow="ALWAYS" />
+            <ColumnConstraints halignment="LEFT" hgrow="ALWAYS" maxWidth="1.7976931348623157E308" />
          </columnConstraints>
          <rowConstraints>
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="ALWAYS" />
@@ -59,7 +59,7 @@
                   <Font size="20.0" />
                </font></Label>
             <ComboBox fx:id="operationBox" GridPane.columnIndex="3" GridPane.halignment="LEFT" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS" />
-            <TextField fx:id="productField" maxHeight="1.7976931348623157E308" GridPane.columnIndex="1" />
+            <TextField fx:id="productField" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" onMouseClicked="#openProductList" GridPane.columnIndex="1" />
          </children>
       </GridPane>
    </top>

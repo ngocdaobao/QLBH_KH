@@ -6,9 +6,14 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -22,20 +27,20 @@ public class truyXuatKhoController extends basicController {
     @FXML private TableColumn<order, Integer> quantityColumn;
     @FXML private TableColumn<order, String> dateColumn;
     @FXML private TableColumn<order, String> operationColumn;
-
+    private String selectedProductName;
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        // Gọi phương thức cha (basicController, khởi tạo datepicker và comboBox)
+        // Call the initialize method of the superclass to ensure it runs
         super.initialize(url, resourceBundle);
 
-        // khởi tạo bảng riêng của chức năng truy xuất kho
+        // Set up table columns here
         orderIdColumn.setCellValueFactory(new PropertyValueFactory<>("orderId"));
         productColumn.setCellValueFactory(new PropertyValueFactory<>("product"));
         quantityColumn.setCellValueFactory(new PropertyValueFactory<>("quantity"));
         dateColumn.setCellValueFactory(new PropertyValueFactory<>("date"));
         operationColumn.setCellValueFactory(new PropertyValueFactory<>("operation"));
         ObservableList<order> data = FXCollections.observableArrayList();
-        //select all
+
         String query = "use BTL_QL_BanHang\n" +
                 "SELECT \n" +
                 "    order_in_tb.order_in_id AS \"mã hóa đơn\",\n" +
@@ -89,13 +94,39 @@ public class truyXuatKhoController extends basicController {
         }
 
     }
-    //sự kiện bấm nút truy vấn
     @FXML
     public void executeQuery()
     {
         if (fromDate != null) System.out.println("From Date: " + fromDateValue);
         if (toDate != null) System.out.println("To Date: " + toDateValue);
-        if (operation != null) System.out.println("Operation " + operation);
+        if (operation != null) System.out.println("Operation: " + operation);
+        if (selectedProductName != null) System.out.println("Selected Product Name: " + selectedProductName);
+    }
+    @FXML
+    public void openProductList() {
+        try {
+            //load view cho danh sach ten mat hang
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/com/project/qlbh_kh/views/danhSachTenSanPhamView.fxml"));
+            Scene productListScene = new Scene(fxmlLoader.load());
+            //set controller cha cho controller cua danh sach ten mat hang
+            danhSachTenSanPhamController controller = fxmlLoader.getController();
+            controller.setMainController(this);
+            //tao stage moi
+            Stage productListStage = new Stage();
+            productListStage.initModality(Modality.APPLICATION_MODAL);
+            productListStage.initOwner(productField.getScene().getWindow());
+            productListStage.setTitle("Danh sách tên sản phẩm");
+            productListStage.setScene(productListScene);
+            //show
+            productListStage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    //ham chon ten mat hang
+    public void setSelectedProductName(String productName) {
+        this.selectedProductName = productName;
+        productField.setText(productName); // Optional: display selected name in the text field
     }
 
 }
