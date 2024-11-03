@@ -4,19 +4,14 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
+import javafx.scene.control.TextField;
 
-public class truyXuatHoaDonController {
-
+public class truyXuatHoaDonController extends basicController {
     @FXML
-    private Button execute;
-
-    @FXML
-    private DatePicker fromDate;
-
-    @FXML
-    private ComboBox<?> operation;
-
-    @FXML
-    private DatePicker toDate;
-
+    public void executeQuery()
+    {
+        if (fromDate != null) System.out.println("From Date: " + fromDateValue);
+        if (toDate != null) System.out.println("To Date: " + toDateValue);
+        if (operation != null) System.out.println("Operation " + operation);
+    }
 }

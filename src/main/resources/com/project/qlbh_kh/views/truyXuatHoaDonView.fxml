@@ -7,6 +7,7 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
@@ -18,7 +19,7 @@
       <GridPane hgap="10.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" vgap="10.0" BorderPane.alignment="CENTER">
          <columnConstraints>
             <ColumnConstraints halignment="LEFT" hgrow="ALWAYS" maxWidth="1.7976931348623157E308" />
-            <ColumnConstraints halignment="LEFT" hgrow="ALWAYS" />
+            <ColumnConstraints halignment="LEFT" hgrow="ALWAYS" maxWidth="1.7976931348623157E308" />
             <ColumnConstraints halignment="LEFT" hgrow="ALWAYS" maxWidth="1.7976931348623157E308" />
             <ColumnConstraints halignment="LEFT" hgrow="ALWAYS" maxWidth="1.7976931348623157E308" />
          </columnConstraints>
@@ -47,9 +48,9 @@
                <font>
                   <Font size="20.0" />
                </font></Label>
-            <DatePicker fx:id="fromDate" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS" />
-            <DatePicker fx:id="toDate" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS" />
-            <Button fx:id="execute" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" text="Thực hiện truy vấn" GridPane.columnIndex="3" GridPane.rowIndex="2">
+            <DatePicker fx:id="fromDate" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" onAction="#enterFromDate" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS" />
+            <DatePicker fx:id="toDate" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" onAction="#enterToDate" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS" />
+            <Button fx:id="execute" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#executeQuery" text="Thực hiện truy vấn" GridPane.columnIndex="3" GridPane.rowIndex="2">
                <font>
                   <Font size="15.0" />
                </font></Button>
@@ -57,7 +58,9 @@
                <font>
                   <Font size="20.0" />
                </font></Label>
-            <ComboBox fx:id="operation" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <ComboBox fx:id="operationBox" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <TextField fx:id="receiverField" GridPane.columnIndex="3" />
+            <TextField fx:id="customerField" GridPane.columnIndex="1" />
          </children>
       </GridPane>
    </top>

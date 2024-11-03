@@ -7,5 +7,4 @@ public class khachHangNhap {
     private String address;
     private String addressDetail;
 
-
 }

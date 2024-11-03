@@ -6,6 +6,7 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
@@ -46,9 +47,9 @@
                <font>
                   <Font size="20.0" />
                </font></Label>
-            <DatePicker fx:id="fromDate" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS" />
-            <DatePicker fx:id="toDate" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS" />
-            <Button fx:id="execute" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" text="Thực hiện truy vấn" GridPane.columnIndex="3" GridPane.rowIndex="2">
+            <DatePicker fx:id="fromDate" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" onAction="#enterFromDate" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS" />
+            <DatePicker fx:id="toDate" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" onAction="#enterToDate" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS" />
+            <Button fx:id="execute" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#executeQuery" text="Thực hiện truy vấn" GridPane.columnIndex="3" GridPane.rowIndex="2">
                <font>
                   <Font size="15.0" />
                </font></Button>
@@ -56,19 +57,22 @@
                <font>
                   <Font size="20.0" />
                </font></Label>
+            <TextField GridPane.columnIndex="1" />
+            <TextField GridPane.columnIndex="1" />
+            <TextField GridPane.columnIndex="3" />
          </children>
       </GridPane>
    </top>
    <center>
       <TableView BorderPane.alignment="CENTER">
          <columns>
-            <TableColumn fx:id="order_in_id" prefWidth="47.0" text="Mã HĐ" />
-            <TableColumn fx:id="customer_in_id" prefWidth="111.0" text="Khách hàng" />
-            <TableColumn fx:id="prod_id" prefWidth="117.0" text="Mặt hàng" />
-            <TableColumn fx:id="quantity" prefWidth="58.0" text="Số lượng" />
-            <TableColumn fx:id="unit_price" prefWidth="59.0" text="Đơn giá" />
-            <TableColumn fx:id="total_amount" prefWidth="99.0" text="Thành tiền" />
-            <TableColumn fx:id="order_date" prefWidth="108.0" text="Ngày" />
+            <TableColumn prefWidth="47.0" text="Mã HĐ" />
+            <TableColumn prefWidth="111.0" text="Khách hàng" />
+            <TableColumn prefWidth="117.0" text="Mặt hàng" />
+            <TableColumn prefWidth="58.0" text="Số lượng" />
+            <TableColumn prefWidth="59.0" text="Đơn giá" />
+            <TableColumn prefWidth="99.0" text="Thành tiền" />
+            <TableColumn prefWidth="108.0" text="Ngày" />
          </columns>
          <columnResizePolicy>
             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
