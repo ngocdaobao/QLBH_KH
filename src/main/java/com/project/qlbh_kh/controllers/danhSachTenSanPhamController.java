@@ -30,8 +30,8 @@ public class danhSachTenSanPhamController implements Initializable {
         System.out.println(productNameField.getText());
     }
     //ham set controller cha
-    private truyXuatKhoController mainController;
-    public void setMainController(truyXuatKhoController mainController) {
+    private basicController mainController;
+    public void setMainController(basicController mainController) {
         this.mainController = mainController;
     }
 

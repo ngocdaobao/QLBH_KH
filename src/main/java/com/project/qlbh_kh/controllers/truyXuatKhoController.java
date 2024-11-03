@@ -27,7 +27,7 @@ public class truyXuatKhoController extends basicController {
     @FXML private TableColumn<order, Integer> quantityColumn;
     @FXML private TableColumn<order, String> dateColumn;
     @FXML private TableColumn<order, String> operationColumn;
-    private String selectedProductName;
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         // Call the initialize method of the superclass to ensure it runs
@@ -102,31 +102,4 @@ public class truyXuatKhoController extends basicController {
         if (operation != null) System.out.println("Operation: " + operation);
         if (selectedProductName != null) System.out.println("Selected Product Name: " + selectedProductName);
     }
-    @FXML
-    public void openProductList() {
-        try {
-            //load view cho danh sach ten mat hang
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/com/project/qlbh_kh/views/danhSachTenSanPhamView.fxml"));
-            Scene productListScene = new Scene(fxmlLoader.load());
-            //set controller cha cho controller cua danh sach ten mat hang
-            danhSachTenSanPhamController controller = fxmlLoader.getController();
-            controller.setMainController(this);
-            //tao stage moi
-            Stage productListStage = new Stage();
-            productListStage.initModality(Modality.APPLICATION_MODAL);
-            productListStage.initOwner(productField.getScene().getWindow());
-            productListStage.setTitle("Danh sách tên sản phẩm");
-            productListStage.setScene(productListScene);
-            //show
-            productListStage.show();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-    //ham chon ten mat hang
-    public void setSelectedProductName(String productName) {
-        this.selectedProductName = productName;
-        productField.setText(productName); // Optional: display selected name in the text field
-    }
-
 }

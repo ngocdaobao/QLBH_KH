@@ -59,7 +59,7 @@
                </font></Label>
             <TextField GridPane.columnIndex="1" />
             <TextField GridPane.columnIndex="1" />
-            <TextField GridPane.columnIndex="3" />
+            <TextField fx:id="productField" onMouseClicked="#openProductNameList" GridPane.columnIndex="3" />
          </children>
       </GridPane>
    </top>

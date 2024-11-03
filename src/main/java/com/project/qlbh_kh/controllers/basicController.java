@@ -5,13 +5,18 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 import javafx.util.StringConverter;
 
+import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -40,7 +45,7 @@ public class basicController implements Initializable {
 
     @FXML
     protected TextField productField;
-
+    protected String selectedProductName;
     @FXML
     protected DatePicker toDate;
     protected LocalDate toDateValue;
@@ -97,5 +102,31 @@ public class basicController implements Initializable {
     @FXML
     public void enterToDate() {
         toDateValue = toDate.getValue();
+    }
+    @FXML
+    public void openProductNameList() {
+        try {
+            //load view cho danh sach ten mat hang
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/com/project/qlbh_kh/views/danhSachTenSanPhamView.fxml"));
+            Scene productListScene = new Scene(fxmlLoader.load());
+            //set controller cha cho controller cua danh sach ten mat hang
+            danhSachTenSanPhamController controller = fxmlLoader.getController();
+            controller.setMainController(this);
+            //tao stage moi
+            Stage productListStage = new Stage();
+            productListStage.initModality(Modality.APPLICATION_MODAL);
+            productListStage.initOwner(productField.getScene().getWindow());
+            productListStage.setTitle("Danh sách tên sản phẩm");
+            productListStage.setScene(productListScene);
+            //show
+            productListStage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    //ham chon ten mat hang
+    public void setSelectedProductName(String productName) {
+        this.selectedProductName = productName;
+        productField.setText(productName); // Optional: display selected name in the text field
     }
 }

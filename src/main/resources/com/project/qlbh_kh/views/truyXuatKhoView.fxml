@@ -59,7 +59,7 @@
                   <Font size="20.0" />
                </font></Label>
             <ComboBox fx:id="operationBox" GridPane.columnIndex="3" GridPane.halignment="LEFT" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS" />
-            <TextField fx:id="productField" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" onMouseClicked="#openProductList" GridPane.columnIndex="1" />
+            <TextField fx:id="productField" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" onMouseClicked="#openProductNameList" GridPane.columnIndex="1" />
          </children>
       </GridPane>
    </top>
