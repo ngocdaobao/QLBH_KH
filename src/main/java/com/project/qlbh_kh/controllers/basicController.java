@@ -8,10 +8,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.StringConverter;
@@ -29,6 +26,7 @@ public class basicController implements Initializable {
     @FXML
     protected DatePicker fromDate;
     protected LocalDate fromDateValue;
+
     @FXML
     protected ComboBox<String> operationBox;
     protected String operation;
@@ -46,16 +44,22 @@ public class basicController implements Initializable {
     @FXML
     protected TextField productField;
     protected String selectedProductName;
+
     @FXML
     protected DatePicker toDate;
     protected LocalDate toDateValue;
+
+    @FXML
+    protected TextField customerNameField;
+    protected int selectedCustomerId;
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         // ComboBox
         //operationBox
         if (operationBox != null) {
             // Thực hiện các thao tác với operationBox
-            ObservableList<String> operations = FXCollections.observableArrayList("Nhập", "Xuất");
+            ObservableList<String> operations = FXCollections.observableArrayList("Nhập", "Xuất", "Cả Hai");
             operationBox.setItems(operations);
             EventHandler<ActionEvent> event = new EventHandler<ActionEvent>() {
                 @Override
@@ -64,6 +68,8 @@ public class basicController implements Initializable {
                         operation = "in";
                     } else if ("Xuất".equals(operationBox.getValue())) {
                         operation = "out";
+                    } else{
+                        operation = "both";
                     }
                 }
             };
@@ -128,5 +134,9 @@ public class basicController implements Initializable {
     public void setSelectedProductName(String productName) {
         this.selectedProductName = productName;
         productField.setText(productName); // Optional: display selected name in the text field
+    }
+    public void setSelectedCustomer(int customerId, String customerName) {
+        this.selectedCustomerId = customerId;
+        customerNameField.setText(customerName); // Optional: display selected name in the text field
     }
 }

@@ -11,19 +11,12 @@ import java.io.IOException;
 
 public class quanLyHangNhapController extends basicController {
     @FXML
-    private TextField customerNameField;
-    private int selectedCustomerId;
-    @FXML
     public void executeQuery()
     {
         if (fromDate != null) System.out.println("From Date: " + fromDateValue);
         if (toDate != null) System.out.println("To Date: " + toDateValue);
         if (selectedCustomerId != 0) System.out.println("Customer in ID " + selectedCustomerId);
         if (selectedProductName != null) System.out.println("Product Name: "+ selectedProductName);
-    }
-    public void setSelectedCustomer(int customerId, String customerName) {
-        this.selectedCustomerId = customerId;
-        customerNameField.setText(customerName); // Optional: display selected name in the text field
     }
     @FXML
     void openCustomerInList() {
