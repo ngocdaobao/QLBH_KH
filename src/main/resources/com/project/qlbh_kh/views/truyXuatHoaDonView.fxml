@@ -59,7 +59,7 @@
                   <Font size="20.0" />
                </font></Label>
             <ComboBox fx:id="operationBox" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-            <TextField fx:id="receiverField" GridPane.columnIndex="3" GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS" />
+            <TextField fx:id="receiverNameField" onMouseClicked="#openReceiverList" GridPane.columnIndex="3" GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS" />
             <TextField fx:id="customerNameField" onMouseClicked="#openCustomerList" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS" />
          </children>
       </GridPane>

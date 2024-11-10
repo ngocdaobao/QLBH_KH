@@ -53,6 +53,10 @@ public class basicController implements Initializable {
     protected TextField customerNameField;
     protected int selectedCustomerId;
 
+    @FXML
+    protected  TextField receiverNameField;
+    protected int selectedReceiverId;
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         // ComboBox
@@ -138,5 +142,10 @@ public class basicController implements Initializable {
     public void setSelectedCustomer(int customerId, String customerName) {
         this.selectedCustomerId = customerId;
         customerNameField.setText(customerName); // Optional: display selected name in the text field
+    }
+    public void setSelectedReceiver(int receiverId, String receiverName)
+    {
+        this.selectedReceiverId = receiverId;
+        receiverNameField.setText(receiverName);
     }
 }
