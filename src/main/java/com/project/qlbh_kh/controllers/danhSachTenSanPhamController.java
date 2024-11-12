@@ -1,5 +1,6 @@
 package com.project.qlbh_kh.controllers;
 
+import com.project.qlbh_kh.entity.product;
 import com.project.qlbh_kh.utils.JDBCUtil;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -8,6 +9,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
 import java.net.URL;
@@ -22,8 +24,8 @@ public class danhSachTenSanPhamController implements Initializable {
     private TextField productNameField;
 
     @FXML
-    private ListView<String> productNameList;
-    ObservableList<String> productNames = FXCollections.observableArrayList();
+    private ListView<product> productList;
+    ObservableList<product> products = FXCollections.observableArrayList();
 
     @FXML
     void filterProductName(ActionEvent event) {
@@ -41,13 +43,13 @@ public class danhSachTenSanPhamController implements Initializable {
         loadProductName();
         //filter theo ten mat hang
         productNameField.textProperty().addListener(((observableValue, oldValue, newValue) -> {
-            productNameList.setItems(productNames.filtered(productName -> productName.toLowerCase().contains(newValue.toLowerCase())));
+            productList.setItems(products.filtered(product -> product.getProd_name().toLowerCase().contains(newValue.toLowerCase())));
         }));
         //chon mat hang
-        productNameList.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, selectedProduct) -> {
+        productList.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, selectedProduct) -> {
             if (selectedProduct != null && mainController != null) {
-                mainController.setSelectedProductName(selectedProduct); // truyen mat hang da chon ve cho controller cha
-                ((Stage) productNameList.getScene().getWindow()).close(); // dong cua so
+                mainController.setSelectedProductId(selectedProduct.getProd_id(), selectedProduct.getProd_name()); // truyen mat hang da chon ve cho controller cha
+                ((Stage) productList.getScene().getWindow()).close(); // dong cua so
             }
         });
     }
@@ -55,14 +57,15 @@ public class danhSachTenSanPhamController implements Initializable {
     public void loadProductName()
     {
         String sql = "use BTL_QL_BanHang\n" +
-                "select prod_name\n" +
+                "select prod_id, prod_name\n" +
                 "from products_tb";
         try{
             Connection connection = JDBCUtil.getConnection();
             PreparedStatement stmt = connection.prepareStatement(sql);
             ResultSet resultSet = stmt.executeQuery();
-            while (resultSet.next()) productNames.add(resultSet.getString(1));
-            productNameList.setItems(productNames);
+            while (resultSet.next()) products.add(new product(resultSet.getInt(1),
+                    resultSet.getString(2)));
+            productList.setItems(products);
         } catch (Exception e)
         {
             e.printStackTrace();

@@ -44,6 +44,7 @@ public class basicController implements Initializable {
     @FXML
     protected TextField productField;
     protected String selectedProductName;
+    protected int selectedProductId;
 
     @FXML
     protected DatePicker toDate;
@@ -138,6 +139,11 @@ public class basicController implements Initializable {
     public void setSelectedProductName(String productName) {
         this.selectedProductName = productName;
         productField.setText(productName); // Optional: display selected name in the text field
+    }
+    public void setSelectedProductId(int productId, String producName)
+    {
+        this.selectedProductId = productId;
+        productField.setText(producName);
     }
     public void setSelectedCustomer(int customerId, String customerName) {
         this.selectedCustomerId = customerId;

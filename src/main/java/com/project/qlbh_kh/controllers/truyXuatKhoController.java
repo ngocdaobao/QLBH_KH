@@ -97,9 +97,13 @@ public class truyXuatKhoController extends basicController {
     @FXML
     public void executeQuery()
     {
+        System.out.println(selectedProductId);
         if (fromDate != null) System.out.println("From Date: " + fromDateValue);
         if (toDate != null) System.out.println("To Date: " + toDateValue);
         if (operation != null) System.out.println("Operation: " + operation);
         if (selectedProductName != null) System.out.println("Selected Product Name: " + selectedProductName);
+        if (selectedProductName == null) System.out.println("Not Selected Product Name");
     }
+
+
 }
