@@ -1,33 +1,34 @@
 package com.project.qlbh_kh.controllers;
 
-import com.project.qlbh_kh.entity.order;
+import com.project.qlbh_kh.entity.stock_manager;
 import com.project.qlbh_kh.utils.JDBCUtil;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.stage.Modality;
-import javafx.stage.Stage;
 
-import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ResourceBundle;
 
 public class truyXuatKhoController extends basicController {
-    @FXML private TableView<order> tableView;
-    @FXML private TableColumn<order, String> orderIdColumn;
-    @FXML private TableColumn<order, String> productColumn;
-    @FXML private TableColumn<order, Integer> quantityColumn;
-    @FXML private TableColumn<order, String> dateColumn;
-    @FXML private TableColumn<order, String> operationColumn;
-
+    @FXML private TableView<stock_manager> tableView;
+    @FXML private TableColumn<stock_manager, String> orderIdColumn;
+    @FXML private TableColumn<stock_manager, String> productColumn;
+    @FXML private TableColumn<stock_manager, Integer> quantityColumn;
+    @FXML private TableColumn<stock_manager, String> dateColumn;
+    @FXML private TableColumn<stock_manager, String> operationColumn;
+    ObservableList<stock_manager> data = FXCollections.observableArrayList();
+    @FXML
+    public void reset()
+    {
+        this.selectedProductId = 0;
+        this.productField.clear();
+    }
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         // Call the initialize method of the superclass to ensure it runs
@@ -39,53 +40,17 @@ public class truyXuatKhoController extends basicController {
         quantityColumn.setCellValueFactory(new PropertyValueFactory<>("quantity"));
         dateColumn.setCellValueFactory(new PropertyValueFactory<>("date"));
         operationColumn.setCellValueFactory(new PropertyValueFactory<>("operation"));
-        ObservableList<order> data = FXCollections.observableArrayList();
-
-        String query = "use BTL_QL_BanHang\n" +
-                "SELECT \n" +
-                "    order_in_tb.order_in_id AS \"mã hóa đơn\",\n" +
-                "    products_tb.prod_name AS \"mặt hàng\",\n" +
-                "    order_in_details_tb.quantity AS \"số lượng\",\n" +
-                "    order_in_tb.order_date AS \"ngày\",\n" +
-                "    'nhập' AS \"thao tác\",\n" +
-                "    customers_in_tb.firstname + ' ' + customers_in_tb.lastname AS \"khách hàng\"\n" +
-                "FROM \n" +
-                "    order_in_tb\n" +
-                "JOIN \n" +
-                "    order_in_details_tb ON order_in_tb.order_in_id = order_in_details_tb.order_in_id\n" +
-                "JOIN \n" +
-                "    customers_in_tb ON order_in_tb.customer_in_id = customers_in_tb.customer_in_id\n" +
-                "JOIN\n" +
-                "\tproducts_tb on order_in_details_tb.prod_id = products_tb.prod_id\n" +
-                "UNION ALL\n" +
-                "\n" +
-                "SELECT \n" +
-                "    order_out_tb.order_out_id AS \"mã hóa đơn\",\n" +
-                "    products_tb.prod_name AS \"mặt hàng\",\n" +
-                "    order_out_details_tb.quantity AS \"số lượng\",\n" +
-                "    order_out_tb.order_date AS \"ngày\",\n" +
-                "    'xuất' AS \"thao tác\",\n" +
-                "    customers_out_tb.firstname + ' ' + customers_out_tb.lastname AS \"khách hàng\"\n" +
-                "FROM \n" +
-                "    order_out_tb\n" +
-                "JOIN \n" +
-                "    order_out_details_tb ON order_out_tb.order_out_id = order_out_details_tb.order_out_id\n" +
-                "JOIN \n" +
-                "    customers_out_tb ON order_out_tb.customer_out_id = customers_out_tb.customer_out_id\n" +
-                "JOIN\n" +
-                "\tproducts_tb on order_out_details_tb.prod_id = products_tb.prod_id;\n";
-
+        String query = "{call dbo.Product_all}";
         try (Connection conn = JDBCUtil.getConnection();
              PreparedStatement stmt = conn.prepareStatement(query);
              ResultSet rs = stmt.executeQuery()) {
-
             while (rs.next()) {
-                data.add(new order(
-                        rs.getString("mã hóa đơn"),
-                        rs.getString("mặt hàng"),
-                        rs.getInt("số lượng"),
-                        rs.getString("ngày"),
-                        rs.getString("thao tác")
+                data.add(new stock_manager(
+                        rs.getInt(1),
+                        rs.getString(2),
+                        rs.getInt(3),
+                        rs.getString(4),
+                        rs.getString(5)
                 ));
             }
             tableView.setItems(data);
@@ -97,13 +62,93 @@ public class truyXuatKhoController extends basicController {
     @FXML
     public void executeQuery()
     {
+
         System.out.println(selectedProductId);
         if (fromDate != null) System.out.println("From Date: " + fromDateValue);
         if (toDate != null) System.out.println("To Date: " + toDateValue);
         if (operation != null) System.out.println("Operation: " + operation);
         if (selectedProductName != null) System.out.println("Selected Product Name: " + selectedProductName);
         if (selectedProductName == null) System.out.println("Not Selected Product Name");
+        if (operation == null || operation.equals("both"))
+        {
+            try
+            {
+                Connection connection = JDBCUtil.getConnection();
+                PreparedStatement preparedStatement = connection.prepareStatement("{call dbo.Product_all(?,?,?)}");
+                preparedStatement.setInt(1, selectedProductId );
+                preparedStatement.setDate(2, fromDateValue == null ? null : Date.valueOf(fromDateValue));
+                preparedStatement.setDate(3, toDateValue == null ? null : Date.valueOf(toDateValue));
+                ResultSet resultSet = preparedStatement.executeQuery();
+                data.clear();
+                while (resultSet.next())
+                {
+                    data.add(new stock_manager(
+                            resultSet.getInt(1),
+                            resultSet.getString(2),
+                            resultSet.getInt(3),
+                            resultSet.getString(4),
+                            resultSet.getString(5)
+                    ));
+                }
+                tableView.setItems(data);
+            } catch (Exception e)
+            {
+                e.printStackTrace();
+            }
+        }
+        else if (operation.equals("in"))
+        {
+            try
+            {
+                Connection connection = JDBCUtil.getConnection();
+                PreparedStatement preparedStatement = connection.prepareStatement("{call dbo.Product_in(?,?,?)}");
+                preparedStatement.setInt(1,selectedProductId);
+                preparedStatement.setDate(2, fromDateValue == null ? null : Date.valueOf(fromDateValue));
+                preparedStatement.setDate(3, toDateValue == null ? null : Date.valueOf(toDateValue));
+                ResultSet resultSet = preparedStatement.executeQuery();
+                data.clear();
+                while (resultSet.next())
+                {
+                    data.add(new stock_manager(
+                            resultSet.getInt(1),
+                            resultSet.getString(2),
+                            resultSet.getInt(3),
+                            resultSet.getString(4),
+                            resultSet.getString(5)
+                    ));
+                }
+                tableView.setItems(data);
+            } catch (Exception e)
+            {
+                e.printStackTrace();
+            }
+        }
+        else
+        {
+            try
+            {
+                Connection connection = JDBCUtil.getConnection();
+                PreparedStatement preparedStatement = connection.prepareStatement("{call dbo.Product_out(?,?,?)}");
+                preparedStatement.setInt(1,selectedProductId);
+                preparedStatement.setDate(2, fromDateValue == null ? null : Date.valueOf(fromDateValue));
+                preparedStatement.setDate(3, toDateValue == null ? null : Date.valueOf(toDateValue));
+                ResultSet resultSet = preparedStatement.executeQuery();
+                data.clear();
+                while (resultSet.next())
+                {
+                    data.add(new stock_manager(
+                            resultSet.getInt(1),
+                            resultSet.getString(2),
+                            resultSet.getInt(3),
+                            resultSet.getString(4),
+                            resultSet.getString(5)
+                    ));
+                }
+                tableView.setItems(data);
+            } catch (Exception e)
+            {
+                e.printStackTrace();
+            }
+        }
     }
-
-
 }

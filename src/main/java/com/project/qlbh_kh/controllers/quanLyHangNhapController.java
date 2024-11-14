@@ -32,6 +32,8 @@ public class quanLyHangNhapController extends basicController {
     @FXML private TableColumn<order_manager,Integer> totalAmountColumn;
     @FXML private TableColumn<order_manager,String> dateColumn;
     ObservableList<order_manager> data = FXCollections.observableArrayList();
+    @FXML public void resetCustomer() {this.customerNameField.clear(); this.selectedCustomerId = 0;}
+    @FXML public void resetProduct() {this.productField.clear(); this.selectedProductId = 0;}
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle)
     {

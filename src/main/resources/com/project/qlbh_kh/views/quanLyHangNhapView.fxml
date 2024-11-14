@@ -53,13 +53,15 @@
                <font>
                   <Font size="15.0" />
                </font></Button>
-            <Label text="Quản lý hàng nhập" GridPane.columnIndex="1" GridPane.rowIndex="2">
+            <Label text="Quản lý hàng nhập" GridPane.rowIndex="2">
                <font>
                   <Font size="20.0" />
                </font></Label>
             <TextField GridPane.columnIndex="1" />
             <TextField fx:id="customerNameField" onMouseClicked="#openCustomerInList" GridPane.columnIndex="1" />
             <TextField fx:id="productField" onMouseClicked="#openProductNameList" GridPane.columnIndex="3" />
+            <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onMouseClicked="#resetCustomer" text="Chọn tất cả khách hàng" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <Button alignment="CENTER" mnemonicParsing="false" onMouseClicked="#resetProduct" text="Chọn tất cả mặt hàng" GridPane.columnIndex="2" GridPane.rowIndex="2" />
          </children>
       </GridPane>
    </top>

@@ -54,12 +54,17 @@
                <font>
                   <Font size="15.0" />
                </font></Button>
-            <Label text="Truy xuất kho" GridPane.columnIndex="1" GridPane.rowIndex="2">
+            <Label text="Truy xuất kho" GridPane.rowIndex="2">
                <font>
                   <Font size="20.0" />
                </font></Label>
             <ComboBox fx:id="operationBox" GridPane.columnIndex="3" GridPane.halignment="LEFT" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS" />
             <TextField fx:id="productField" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" onMouseClicked="#openProductNameList" GridPane.columnIndex="1" />
+            <Button contentDisplay="CENTER" mnemonicParsing="false" onMouseClicked="#reset" text="Chọn tất cả mặt hàng" GridPane.columnIndex="1" GridPane.rowIndex="2">
+               <font>
+                  <Font size="13.0" />
+               </font>
+            </Button>
          </children>
       </GridPane>
    </top>

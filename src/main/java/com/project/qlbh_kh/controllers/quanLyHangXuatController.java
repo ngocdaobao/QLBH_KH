@@ -31,6 +31,8 @@ public class quanLyHangXuatController extends basicController {
     @FXML private TableColumn<order_manager,Integer> totalAmountColumn;
     @FXML private TableColumn<order_manager,String> dateColumn;
     ObservableList<order_manager> data = FXCollections.observableArrayList();
+    @FXML public void resetCustomer() {this.selectedCustomerId = 0; this.customerNameField.clear();}
+    @FXML public void resetProduct() {this.selectedProductId = 0; this.productField.clear();}
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle)
     {
@@ -75,8 +77,8 @@ public class quanLyHangXuatController extends basicController {
     {
         if (fromDate != null) System.out.println("From Date: " + fromDateValue);
         if (toDate != null) System.out.println("To Date: " + toDateValue);
-        System.out.println("Customer out ID " + selectedCustomerId);
-        System.out.println("Product ID: "+ selectedProductId);
+        if (selectedCustomerId != 0) System.out.println("Customer out ID " + selectedCustomerId);
+        if (selectedProductName != null) System.out.println("Product Name: "+ selectedProductName);
         try
         {
             Connection connection = JDBCUtil.getConnection();
