@@ -3,28 +3,41 @@ package com.project.qlbh_kh.entity;
 public class order_manager {
     private int id;
     private String customer_name;
-    private String prod_name;
-    private int quantity;
-    private double unit_price;
-    private double total_amount;
+    private double total_payment;
+    private String receiver_name;
     private String date;
-    public order_manager(int id, String customer_name, String prod_name, int quantity, double unit_price, double total_amount, String date)
+    private String operation;
+    public order_manager(int id, String customer_name, double total_payment, String receiver_name, String date, String operation)
     {
         this.id = id;
         this.customer_name = customer_name;
-        this.prod_name = prod_name;
-        this.quantity = quantity;
-        this.unit_price = unit_price;
-        this.total_amount = total_amount;
+        this.total_payment = total_payment;
+        this.receiver_name = receiver_name;
+        this.date = date;
+        this.operation = operation;
+    }
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
         this.date = date;
     }
 
-    public int getId() {
-        return id;
+    public String getReceiver_name() {
+        return receiver_name;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setReceiver_name(String receiver_name) {
+        this.receiver_name = receiver_name;
+    }
+
+    public double getTotal_payment() {
+        return total_payment;
+    }
+
+    public void setTotal_payment(double total_payment) {
+        this.total_payment = total_payment;
     }
 
     public String getCustomer_name() {
@@ -35,43 +48,19 @@ public class order_manager {
         this.customer_name = customer_name;
     }
 
-    public String getProd_name() {
-        return prod_name;
+    public int getId() {
+        return id;
     }
 
-    public void setProd_name(String prod_name) {
-        this.prod_name = prod_name;
+    public void setId(int id) {
+        this.id = id;
     }
 
-    public int getQuantity() {
-        return quantity;
+    public String getOperation() {
+        return operation;
     }
 
-    public void setQuantity(int quantity) {
-        this.quantity = quantity;
-    }
-
-    public double getUnit_price() {
-        return unit_price;
-    }
-
-    public void setUnit_price(int unit_price) {
-        this.unit_price = unit_price;
-    }
-
-    public double getTotal_amount() {
-        return total_amount;
-    }
-
-    public void setTotal_amount(int total_amount) {
-        this.total_amount = total_amount;
-    }
-
-    public String getDate() {
-        return date;
-    }
-
-    public void setDate(String date) {
-        this.date = date;
+    public void setOperation(String operation) {
+        this.operation = operation;
     }
 }

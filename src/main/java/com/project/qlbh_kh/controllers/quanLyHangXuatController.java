@@ -1,6 +1,6 @@
 package com.project.qlbh_kh.controllers;
 
-import com.project.qlbh_kh.entity.order_manager;
+import com.project.qlbh_kh.entity.product_manager;
 import com.project.qlbh_kh.utils.JDBCUtil;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -22,15 +22,15 @@ import java.sql.ResultSet;
 import java.util.ResourceBundle;
 
 public class quanLyHangXuatController extends basicController {
-    @FXML private TableView<order_manager> tableView;
-    @FXML private TableColumn<order_manager,Integer> idColumn;
-    @FXML private TableColumn<order_manager,String> customerNameColumn;
-    @FXML private TableColumn<order_manager,String> prodNameColumn;
-    @FXML private TableColumn<order_manager,Integer> quantityColumn;
-    @FXML private TableColumn<order_manager,Integer> unitPriceColumn;
-    @FXML private TableColumn<order_manager,Integer> totalAmountColumn;
-    @FXML private TableColumn<order_manager,String> dateColumn;
-    ObservableList<order_manager> data = FXCollections.observableArrayList();
+    @FXML private TableView<product_manager> tableView;
+    @FXML private TableColumn<product_manager,Integer> idColumn;
+    @FXML private TableColumn<product_manager,String> customerNameColumn;
+    @FXML private TableColumn<product_manager,String> prodNameColumn;
+    @FXML private TableColumn<product_manager,Integer> quantityColumn;
+    @FXML private TableColumn<product_manager,Integer> unitPriceColumn;
+    @FXML private TableColumn<product_manager,Integer> totalAmountColumn;
+    @FXML private TableColumn<product_manager,String> dateColumn;
+    ObservableList<product_manager> data = FXCollections.observableArrayList();
     @FXML public void resetCustomer() {this.selectedCustomerId = 0; this.customerNameField.clear();}
     @FXML public void resetProduct() {this.selectedProductId = 0; this.productField.clear();}
     @Override
@@ -56,7 +56,7 @@ public class quanLyHangXuatController extends basicController {
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next())
             {
-                data.add(new order_manager(
+                data.add(new product_manager(
                         resultSet.getInt(1),
                         resultSet.getString(2),
                         resultSet.getString(3),
@@ -91,7 +91,7 @@ public class quanLyHangXuatController extends basicController {
             data.clear();
             while (resultSet.next())
             {
-                data.add(new order_manager(
+                data.add(new product_manager(
                         resultSet.getInt(1),
                         resultSet.getString(2),
                         resultSet.getString(3),

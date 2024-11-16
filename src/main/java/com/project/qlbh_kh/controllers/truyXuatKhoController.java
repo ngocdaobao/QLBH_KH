@@ -57,7 +57,6 @@ public class truyXuatKhoController extends basicController {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
     }
     @FXML
     public void executeQuery()

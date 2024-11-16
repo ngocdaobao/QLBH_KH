@@ -1,14 +1,90 @@
 package com.project.qlbh_kh.controllers;
 
+import com.project.qlbh_kh.entity.order_manager;
+import com.project.qlbh_kh.utils.JDBCUtil;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.net.URL;
+import java.sql.Connection;
+import java.sql.Date;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.ResourceBundle;
 
 public class truyXuatHoaDonController extends basicController {
+    @FXML private TableView<order_manager> tableView;
+    @FXML private TableColumn<order_manager,Integer> idColumn;
+    @FXML private TableColumn<order_manager,String> customerNameColumn;
+    @FXML private TableColumn<order_manager,Double> totalPaymentColumn;
+    @FXML private TableColumn<order_manager,String> receiverNameColumn;
+    @FXML private TableColumn<order_manager,String> dateColumn;
+    @FXML private TableColumn<order_manager,String> operationColumn;
+    ObservableList<order_manager> data = FXCollections.observableArrayList();
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle)
+    {
+        super.initialize(url,resourceBundle);
+        customerNameField.setDisable(true);
+        receiverNameField.setDisable(true);
+        ObservableList<String> operations = FXCollections.observableArrayList("Nhập", "Xuất", "Cả Hai");
+        operationBox.setItems(operations);
+        operationBox.valueProperty().addListener(((observableValue, oldValue, newValue) -> {
+            if (oldValue == null || !oldValue.equals(newValue))
+            {
+                customerNameField.clear();
+                selectedCustomerId = 0;
+                receiverNameField.clear();
+                selectedReceiverId = 0;
+            }
+            if (newValue.equals("Nhập") || newValue.equals("Xuất"))
+            {
+                customerNameField.setDisable(false);
+                receiverNameField.setDisable(false);
+            }
+            else
+            {
+                customerNameField.setDisable(true);
+                receiverNameField.setDisable(true);
+            }
+        }));
+        idColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
+        customerNameColumn.setCellValueFactory(new PropertyValueFactory<>("customer_name"));
+        totalPaymentColumn.setCellValueFactory(new PropertyValueFactory<>("total_payment"));
+        receiverNameColumn.setCellValueFactory(new PropertyValueFactory<>("receiver_name"));
+        dateColumn.setCellValueFactory(new PropertyValueFactory<>("date"));
+        operationColumn.setCellValueFactory(new PropertyValueFactory<>("operation"));
+        try
+        {
+            Connection connection = JDBCUtil.getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement("{call dbo.Order_all}");
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next())
+            {
+                data.add(new order_manager(
+                        resultSet.getInt(1),
+                        resultSet.getString(2),
+                        resultSet.getDouble(3),
+                        resultSet.getString(4),
+                        resultSet.getString(6),
+                        resultSet.getString(7)
+                ));
+            }
+            tableView.setItems(data);
+        } catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+    }
     @FXML
     public void executeQuery() {
         if (fromDate != null) System.out.println("From Date: " + fromDateValue);
@@ -16,6 +92,90 @@ public class truyXuatHoaDonController extends basicController {
         if (operation != null) System.out.println("Operation " + operation);
         System.out.println(selectedCustomerId);
         System.out.println(selectedReceiverId);
+        if (operation == null || operation.equals("both"))
+        {
+            try
+            {
+                Connection connection = JDBCUtil.getConnection();
+                PreparedStatement preparedStatement = connection.prepareStatement("{call dbo.Order_all(?,?,?,?)}");
+                preparedStatement.setInt(1,selectedCustomerId);
+                preparedStatement.setInt(2,selectedReceiverId);
+                preparedStatement.setDate(3,fromDateValue == null ? null : Date.valueOf(fromDateValue));
+                preparedStatement.setDate(4,toDateValue == null ? null : Date.valueOf(toDateValue));
+                ResultSet resultSet = preparedStatement.executeQuery();
+                data.clear();
+                while(resultSet.next())
+                {
+                    data.add(new order_manager(
+                            resultSet.getInt(1),
+                            resultSet.getString(2),
+                            resultSet.getDouble(3),
+                            resultSet.getString(4),
+                            resultSet.getString(6),
+                            resultSet.getString(7)
+                    ));
+                }
+            } catch (Exception e)
+            {
+                e.printStackTrace();
+            }
+        }
+        else if (operation.equals("in"))
+        {
+            try
+            {
+                Connection connection = JDBCUtil.getConnection();
+                PreparedStatement preparedStatement = connection.prepareStatement("{call dbo.Order_in(?,?,?,?)}");
+                preparedStatement.setInt(1,selectedCustomerId);
+                preparedStatement.setInt(2,selectedReceiverId);
+                preparedStatement.setDate(3,fromDateValue == null ? null : Date.valueOf(fromDateValue));
+                preparedStatement.setDate(4,toDateValue == null ? null : Date.valueOf(toDateValue));
+                ResultSet resultSet = preparedStatement.executeQuery();
+                data.clear();
+                while(resultSet.next())
+                {
+                    data.add(new order_manager(
+                            resultSet.getInt(1),
+                            resultSet.getString(2),
+                            resultSet.getDouble(3),
+                            resultSet.getString(4),
+                            resultSet.getString(6),
+                            resultSet.getString(7)
+                    ));
+                }
+            } catch (Exception e)
+            {
+                e.printStackTrace();
+            }
+        }
+        else if (operation.equals("out"))
+        {
+            try
+            {
+                Connection connection = JDBCUtil.getConnection();
+                PreparedStatement preparedStatement = connection.prepareStatement("{call dbo.Order_out(?,?,?,?)}");
+                preparedStatement.setInt(1,selectedCustomerId);
+                preparedStatement.setInt(2,selectedReceiverId);
+                preparedStatement.setDate(3,fromDateValue == null ? null : Date.valueOf(fromDateValue));
+                preparedStatement.setDate(4,toDateValue == null ? null : Date.valueOf(toDateValue));
+                ResultSet resultSet = preparedStatement.executeQuery();
+                data.clear();
+                while(resultSet.next())
+                {
+                    data.add(new order_manager(
+                            resultSet.getInt(1),
+                            resultSet.getString(2),
+                            resultSet.getDouble(3),
+                            resultSet.getString(4),
+                            resultSet.getString(6),
+                            resultSet.getString(7)
+                    ));
+                }
+            } catch (Exception e)
+            {
+                e.printStackTrace();
+            }
+        }
     }
     @FXML
     public void openCustomerList()
