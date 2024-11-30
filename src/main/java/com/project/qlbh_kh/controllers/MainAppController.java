@@ -15,22 +15,23 @@ import java.util.ResourceBundle;
 
 public class MainAppController implements Initializable {
     @FXML
-    private TreeView<String> treeView;
+    protected TreeView<String> treeView;
 
     @FXML
-    private BorderPane mainBorderPane;
+    protected BorderPane mainBorderPane;
 
     @FXML
-    private StackPane contentArea;
+    protected StackPane contentArea;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         TreeItem<String> root = new TreeItem<>();
+        TreeItem<String> trangChu = new TreeItem<>("Trang chu");
         TreeItem<String> hoaDon = new TreeItem<>("Hóa đơn");
         TreeItem<String> hangNhap = new TreeItem<>("Hàng Nhập");
         TreeItem<String> hangXuat = new TreeItem<>("Hàng Xuất");
         TreeItem<String> hangTonKho = new TreeItem<>("Hàng Tồn Kho");
-        root.getChildren().addAll(hoaDon, hangNhap, hangXuat, hangTonKho);
+        root.getChildren().addAll(trangChu, hoaDon, hangNhap, hangXuat, hangTonKho);
 
         // hóa đơn
         TreeItem<String> taoHoaDon = new TreeItem<>("Tạo hóa đơn");
@@ -45,47 +46,48 @@ public class MainAppController implements Initializable {
         root.setExpanded(true);
         treeView.setRoot(root);
         treeView.setShowRoot(false);
+        treeView.setOnMouseClicked(mouseEvent -> {
+            TreeItem<String> selectedItem = treeView.getSelectionModel().getSelectedItem();
+            selectedItem.setExpanded(!selectedItem.isExpanded());
+            try {
+                if (selectedItem == trangChu) loadContent("/com/project/qlbh_kh/views/TrangChuView.fxml");
+                else if (selectedItem == taoHoaDon) loadContent("/com/project/qlbh_kh/views/taoHoaDonView.fxml");
+                else if (selectedItem == truyXuatHoaDon) loadContent("/com/project/qlbh_kh/views/truyXuatHoaDonView.fxml");
+                else if (selectedItem == hangNhap) loadContent("/com/project/qlbh_kh/views/quanLyHangNhapView.fxml");
+                else if (selectedItem == hangXuat) loadContent("/com/project/qlbh_kh/views/quanLyHangXuatView.fxml");
+                else if (selectedItem == kiemKho) loadContent("/com/project/qlbh_kh/views/kiemKhoView.fxml");
+                else loadContent("/com/project/qlbh_kh/views/truyXuatKhoView.fxml");
 
-        treeView.getSelectionModel().selectedItemProperty().addListener((observableValue, oldItem, newItem) -> {
-            if (newItem != null) {
-                String selectedItem = newItem.getValue();
-                if (newItem.isExpanded()) newItem.setExpanded(false);
-                else newItem.setExpanded(true);
-                // Thay đổi giao diện ở phần giữa (center)
-                try {
-                    switch (selectedItem) {
-                        case "Tạo hóa đơn":
-                            loadContent("/com/project/qlbh_kh/views/taoHoaDonView.fxml");
-                            break;
-                        case "Truy xuất hóa đơn":
-                            loadContent("/com/project/qlbh_kh/views/truyXuatHoaDonView.fxml");
-                            break;
-                        case "Hàng Nhập":
-                            loadContent("/com/project/qlbh_kh/views/quanLyHangNhapView.fxml");
-                            break;
-                        case "Hàng Xuất":
-                            loadContent("/com/project/qlbh_kh/views/quanLyHangXuatView.fxml");
-                            break;
-                        case "Kiểm kho":
-                            loadContent("/com/project/qlbh_kh/views/kiemKhoView.fxml");
-                            break;
-                        case "Truy xuất kho":
-                            loadContent("/com/project/qlbh_kh/views/truyXuatKhoView.fxml");
-                            break;
-                        default:
-                            contentArea.getChildren().clear(); // Xóa nội dung nếu không có lựa chọn phù hợp
-                            break;
-                    }
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+            }catch (Exception e)
+            {
+                e.printStackTrace();
             }
+
         });
+
+        try{
+            loadContent("/com/project/qlbh_kh/views/TrangChuView.fxml");
+        } catch (Exception e)
+        {
+            e.printStackTrace();
+        }
     }
 
     // Phương thức để tải và thay thế nội dung ở phần giữa (center) của BorderPane
-    private void loadContent(String fxmlFile) throws IOException {
-        Node node = FXMLLoader.load(getClass().getResource(fxmlFile));
-        contentArea.getChildren().setAll(node);
+    protected void loadContent(String fxmlFile) throws IOException {
+        try
+        {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlFile));
+            Node node = loader.load();
+            Object controller = loader.getController();
+            if (controller instanceof TrangChuController) {
+                ((TrangChuController) controller).setMainAppController(this);
+            }
+            contentArea.getChildren().setAll(node);
+        } catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+
     }
 }

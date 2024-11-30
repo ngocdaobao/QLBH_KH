@@ -7,6 +7,7 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Modality;
@@ -153,5 +154,24 @@ public class basicController implements Initializable {
     {
         this.selectedReceiverId = receiverId;
         receiverNameField.setText(receiverName);
+    }
+    public void showOrder(int id, String operation)
+    {
+        try
+        {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/com/project/qlbh_kh/views/HienThiHoaDonView.fxml"));
+            Parent root = fxmlLoader.load();
+            HienThiHoaDonController hienThiHoaDonController = fxmlLoader.getController();
+            hienThiHoaDonController.setUpData(id,operation);
+            Stage orderStage = new Stage();
+            orderStage.initModality(Modality.APPLICATION_MODAL);
+            //orderStage.initOwner();
+            orderStage.setTitle("Hien thi hoa don");
+            orderStage.setScene(new Scene(root));
+            orderStage.show();
+        } catch (Exception e)
+        {
+            e.printStackTrace();
+        }
     }
 }

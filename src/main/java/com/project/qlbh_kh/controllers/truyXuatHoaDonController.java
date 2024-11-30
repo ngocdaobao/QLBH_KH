@@ -1,6 +1,7 @@
 package com.project.qlbh_kh.controllers;
 
 import com.project.qlbh_kh.entity.order_manager;
+import com.project.qlbh_kh.entity.product_manager;
 import com.project.qlbh_kh.utils.JDBCUtil;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -84,6 +85,13 @@ public class truyXuatHoaDonController extends basicController {
         {
             e.printStackTrace();
         }
+        //chon hoa don
+        tableView.setOnMouseClicked(mouseEvent -> {
+            order_manager selectedItem = tableView.getSelectionModel().getSelectedItem();
+            if (selectedItem.getOperation().equals("Nhập"))  showOrder(selectedItem.getId(),"in");
+            else showOrder(selectedItem.getId(),"out");
+        });
+
     }
     @FXML
     public void executeQuery() {

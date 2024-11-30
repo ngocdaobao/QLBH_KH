@@ -72,6 +72,11 @@ public class quanLyHangNhapController extends basicController {
         {
             e.printStackTrace();
         }
+        //chon hoa don
+        tableView.setOnMouseClicked(mouseEvent -> {
+            product_manager selectedItem = tableView.getSelectionModel().getSelectedItem();
+            showOrder(selectedItem.getId(),"in");
+        });
     }
     @FXML
     public void executeQuery()

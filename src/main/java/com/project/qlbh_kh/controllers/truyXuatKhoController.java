@@ -1,5 +1,6 @@
 package com.project.qlbh_kh.controllers;
 
+import com.project.qlbh_kh.entity.order_manager;
 import com.project.qlbh_kh.entity.stock_manager;
 import com.project.qlbh_kh.utils.JDBCUtil;
 import javafx.collections.FXCollections;
@@ -57,6 +58,12 @@ public class truyXuatKhoController extends basicController {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        //chon hoa don
+        tableView.setOnMouseClicked(mouseEvent -> {
+            stock_manager selectedItem = tableView.getSelectionModel().getSelectedItem();
+            if (selectedItem.getOperation().equals("Nhập"))  showOrder(selectedItem.getOrderId(),"in");
+            else showOrder(selectedItem.getOrderId(),"out");
+        });
     }
     @FXML
     public void executeQuery()

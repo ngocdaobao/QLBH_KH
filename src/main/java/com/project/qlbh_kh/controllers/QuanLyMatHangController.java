@@ -1,0 +1,139 @@
+package com.project.qlbh_kh.controllers;
+
+import com.project.qlbh_kh.entity.product;
+import com.project.qlbh_kh.utils.JDBCUtil;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
+
+import java.net.URL;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.ResourceBundle;
+
+public class QuanLyMatHangController implements Initializable {
+    @FXML private TextField searchField;
+    @FXML private TableView<product> tableView; //tableView lưu product
+    @FXML private TableColumn<product,String> productNameColumn; //tableColumn luu thuoc tinh productName co kieu du lieu la String
+    @FXML private TableColumn<product,Double> priceInColumn;
+    @FXML private TableColumn<product,Double> priceOutColumn;
+    @FXML private TableColumn<product,String> unitPriceColumn;
+    @FXML private Button addNewProductButton;
+    @FXML private Button reloadTableButton;
+    private ObservableList<product> productList = FXCollections.observableArrayList(); //observablelist de luu nhung doi tuong duoc hien thi trong tableview
+    @Override
+    //phuong thuong initialize se duoc goi de set up cac doi tuong trong scene truoc khi hien thi tren man hinh
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        //thiet lap thuoc tinh cho cac cot, dung ten thuoc tinh cua lop product
+        productNameColumn.setCellValueFactory(new PropertyValueFactory<>("prod_name"));
+        priceInColumn.setCellValueFactory(new PropertyValueFactory<>("price_in"));
+        priceOutColumn.setCellValueFactory(new PropertyValueFactory<>("price_out"));
+        unitPriceColumn.setCellValueFactory(new PropertyValueFactory<>("unit_sold"));
+        //them su kien chinh sua mat hang cho tableview
+        tableView.setOnMouseClicked(mouseEvent -> {
+            product selectedProduct = tableView.getSelectionModel().getSelectedItem();
+            modifyProduct(selectedProduct);
+        });
+        //loc san pham trong tableview khi tuong tac voi searchfield
+        searchField.textProperty().addListener(((observableValue, oldValue, newValue) -> {
+            tableView.setItems(productList.filtered(product -> {
+                return product.getProd_name().toLowerCase().contains(newValue);
+            }));
+        }));
+        //hien thi tat ca mat hang
+        openProductList();
+    }
+    @FXML
+    public void openProductList()
+    {
+        //clear searchfield
+        searchField.clear();
+        try
+        {
+            //connect voi sqlsever
+            Connection connection = JDBCUtil.getConnection();
+            //nhap truy van
+            PreparedStatement preparedStatement = connection.prepareStatement("exec openProductList");
+            //thuc hien truy van
+            ResultSet resultSet = preparedStatement.executeQuery();
+            //clear productlist de tranh lap lai
+            productList.clear();
+            //lay cac ban ghi trong truy van sql
+            while(resultSet.next())
+            {
+                productList.add(new product(
+                        resultSet.getInt(1),
+                        resultSet.getString(2),
+                        resultSet.getDouble(3),
+                        resultSet.getDouble(4),
+                        resultSet.getString(5)
+                ));
+            }
+            //hien thi len tableview
+            tableView.setItems(productList);
+        }catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+    }
+    //mo cua so phu de them mat hang moi
+    @FXML
+    public void addNewProduct()
+    {
+        System.out.println("addnew");
+        try
+        {
+            //load scence them mat hang
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/com/project/qlbh_kh/views/ThemMatHangMoiView.fxml"));
+            Scene addNewProductScene = new Scene(fxmlLoader.load());
+            //set controller cha cho scene moi
+            ThemMatHangMoiController themMatHangMoiController = fxmlLoader.getController();
+            themMatHangMoiController.setMainController(this);
+            //tao stage moi
+            Stage addNewProductStage = new Stage();
+            //modal: phai dong cua so con neu muon thao tac cua so cha
+            addNewProductStage.initModality(Modality.APPLICATION_MODAL);
+            addNewProductStage.initOwner(addNewProductButton.getScene().getWindow());
+            addNewProductStage.setTitle("Them mat hang moi");
+            addNewProductStage.setScene(addNewProductScene);
+            //show
+            addNewProductStage.show();
+        }catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+    }
+    //mo cua so phu de chinh sua mat hang
+    public void modifyProduct(product selectedProduct)
+    {
+        System.out.println("modify");
+        try
+        {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/com/project/qlbh_kh/views/ChinhSuaMatHangView.fxml"));
+            Scene modifyProductScene = new Scene(fxmlLoader.load());
+            ChinhSuaMatHangController chinhSuaMatHangController = fxmlLoader.getController();
+            chinhSuaMatHangController.setMainController(this);
+            chinhSuaMatHangController.setSelectedProduct(selectedProduct);
+            Stage modifyProductStage = new Stage();
+            modifyProductStage.initModality(Modality.APPLICATION_MODAL);
+            modifyProductStage.initOwner(tableView.getScene().getWindow());
+            modifyProductStage.setTitle("Chinh sua mat hang");
+            modifyProductStage.setScene(modifyProductScene);
+            modifyProductStage.show();
+        } catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+    }
+}

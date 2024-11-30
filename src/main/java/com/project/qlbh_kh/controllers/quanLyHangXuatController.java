@@ -71,6 +71,12 @@ public class quanLyHangXuatController extends basicController {
         {
             e.printStackTrace();
         }
+        //chon hoa don
+        tableView.setOnMouseClicked(mouseEvent -> {
+            product_manager selectedItem = tableView.getSelectionModel().getSelectedItem();
+            showOrder(selectedItem.getId(),"out");
+        });
+
     }
     @FXML
     public void executeQuery()
