@@ -1,7 +1,6 @@
 package com.project.qlbh_kh.controllers;
 
 import com.project.qlbh_kh.entity.order_manager;
-import com.project.qlbh_kh.entity.product_manager;
 import com.project.qlbh_kh.utils.JDBCUtil;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -22,7 +21,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ResourceBundle;
 
-public class truyXuatHoaDonController extends basicController {
+public class TruyXuatHoaDonController extends BasicController {
     @FXML private TableView<order_manager> tableView;
     @FXML private TableColumn<order_manager,Integer> idColumn;
     @FXML private TableColumn<order_manager,String> customerNameColumn;
@@ -201,7 +200,7 @@ public class truyXuatHoaDonController extends basicController {
                 FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/com/project/qlbh_kh/views/danhSachKhachHangNhapView.fxml"));
                 Scene customerInListScene = new Scene(fxmlLoader.load());
                 //set controller cha cho controller cua danh sach ten mat hang
-                danhSachKhachHangNhapController controller = fxmlLoader.getController();
+                DanhSachKhachHangNhapController controller = fxmlLoader.getController();
                 controller.setMainController(this);
                 //tao stage moi
                 Stage customerListStage = new Stage();
@@ -223,7 +222,7 @@ public class truyXuatHoaDonController extends basicController {
                 FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/com/project/qlbh_kh/views/danhSachKhachHangXuatView.fxml"));
                 Scene customerInListScene = new Scene(fxmlLoader.load());
                 //set controller cha cho controller cua danh sach ten mat hang
-                danhSachKhachHangXuatController controller = fxmlLoader.getController();
+                DanhSachKhachHangXuatController controller = fxmlLoader.getController();
                 controller.setMainController(this);
                 //tao stage moi
                 Stage customerListStage = new Stage();
@@ -245,7 +244,7 @@ public class truyXuatHoaDonController extends basicController {
                 FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/com/project/qlbh_kh/views/danhSachKhachHangView.fxml"));
                 Scene customerInListScene = new Scene(fxmlLoader.load());
                 //set controller cha cho controller cua danh sach ten mat hang
-                danhSachKhachHangController controller = fxmlLoader.getController();
+                DanhSachKhachHangController controller = fxmlLoader.getController();
                 controller.setMainController(this);
                 //tao stage moi
                 Stage customerListStage = new Stage();
@@ -276,7 +275,7 @@ public class truyXuatHoaDonController extends basicController {
                 FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/com/project/qlbh_kh/views/danhSachNguoiNhanNhapView.fxml"));
                 Scene receiverInListScene = new Scene(fxmlLoader.load());
                 //set controller cha cho controller cua danh sach ten mat hang
-                danhSachNguoiNhanNhapController controller = fxmlLoader.getController();
+                DanhSachNguoiNhanNhapController controller = fxmlLoader.getController();
                 controller.setMainController(this);
                 //tao stage moi
                 Stage receiverListStage = new Stage();
@@ -298,7 +297,7 @@ public class truyXuatHoaDonController extends basicController {
                 FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/com/project/qlbh_kh/views/danhSachNguoiNhanXuatView.fxml"));
                 Scene receiverOutListScene = new Scene(fxmlLoader.load());
                 //set controller cha cho controller cua danh sach ten mat hang
-                danhSachNguoiNhanXuatController controller = fxmlLoader.getController();
+                DanhSachNguoiNhanXuatController controller = fxmlLoader.getController();
                 controller.setMainController(this);
                 //tao stage moi
                 Stage receiverListStage = new Stage();
@@ -320,7 +319,7 @@ public class truyXuatHoaDonController extends basicController {
                 FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/com/project/qlbh_kh/views/danhSachNguoiNhanView.fxml"));
                 Scene receiverInListScene = new Scene(fxmlLoader.load());
                 //set controller cha cho controller cua danh sach ten mat hang
-                danhSachNguoiNhanController controller = fxmlLoader.getController();
+                DanhSachNguoiNhanController controller = fxmlLoader.getController();
                 controller.setMainController(this);
                 //tao stage moi
                 Stage receiverListStage = new Stage();

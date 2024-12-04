@@ -9,7 +9,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
 import java.net.URL;
@@ -18,7 +17,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ResourceBundle;
 
-public class danhSachTenSanPhamController implements Initializable {
+public class DanhSachTenSanPhamController implements Initializable {
 
     @FXML
     private TextField productNameField;
@@ -32,8 +31,8 @@ public class danhSachTenSanPhamController implements Initializable {
         System.out.println(productNameField.getText());
     }
     //ham set controller cha
-    private basicController mainController;
-    public void setMainController(basicController mainController) {
+    private BasicController mainController;
+    public void setMainController(BasicController mainController) {
         this.mainController = mainController;
     }
 

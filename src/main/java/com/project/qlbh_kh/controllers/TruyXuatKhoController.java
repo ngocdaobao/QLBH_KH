@@ -1,6 +1,5 @@
 package com.project.qlbh_kh.controllers;
 
-import com.project.qlbh_kh.entity.order_manager;
 import com.project.qlbh_kh.entity.stock_manager;
 import com.project.qlbh_kh.utils.JDBCUtil;
 import javafx.collections.FXCollections;
@@ -16,7 +15,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ResourceBundle;
 
-public class truyXuatKhoController extends basicController {
+public class TruyXuatKhoController extends BasicController {
     @FXML private TableView<stock_manager> tableView;
     @FXML private TableColumn<stock_manager, String> orderIdColumn;
     @FXML private TableColumn<stock_manager, String> productColumn;

@@ -1,4 +1,4 @@
 package com.project.qlbh_kh.controllers;
 
-public class taoHoaDonController {
+public class TaoHoaDonController {
 }

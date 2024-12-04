@@ -8,11 +8,11 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
-public class danhSachNguoiNhanNhapController extends danhSachNguoiNhanController implements Initializable {
+public class DanhSachNguoiNhanXuatController extends DanhSachNguoiNhanController implements Initializable {
     @Override
     public void loadReceiverList()
     {
-        String sql = "exec receivers_in_list";
+        String sql = "exec receivers_out_list";
         try
         {
             Connection connection = JDBCUtil.getConnection();

@@ -17,7 +17,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ResourceBundle;
 
-public class danhSachNguoiNhanController implements  Initializable{
+public class DanhSachNguoiNhanController implements  Initializable{
     @FXML
     protected TableView<receiver> receiverList;
     protected ObservableList<receiver> receivers = FXCollections.observableArrayList();
@@ -33,8 +33,8 @@ public class danhSachNguoiNhanController implements  Initializable{
     @FXML
     protected TableColumn<receiver, String> phoneNumberColumn;
 
-    protected basicController mainController;
-    public void setMainController(basicController basicController) {
+    protected BasicController mainController;
+    public void setMainController(BasicController basicController) {
         this.mainController = basicController;
     }
 

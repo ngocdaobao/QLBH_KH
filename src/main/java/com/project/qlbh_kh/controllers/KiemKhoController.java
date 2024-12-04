@@ -14,7 +14,7 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 
 
-public class kiemKhoController {
+public class KiemKhoController {
     @FXML
     private TableView<product> tableView;
     @FXML

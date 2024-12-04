@@ -21,7 +21,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ResourceBundle;
 
-public class quanLyHangXuatController extends basicController {
+public class QuanLyHangXuatController extends BasicController {
     @FXML private TableView<product_manager> tableView;
     @FXML private TableColumn<product_manager,Integer> idColumn;
     @FXML private TableColumn<product_manager,String> customerNameColumn;
@@ -120,7 +120,7 @@ public class quanLyHangXuatController extends basicController {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/com/project/qlbh_kh/views/danhSachKhachHangXuatView.fxml"));
             Scene customerInListScene = new Scene(fxmlLoader.load());
             //set controller cha cho controller cua danh sach ten mat hang
-            danhSachKhachHangXuatController controller = fxmlLoader.getController();
+            DanhSachKhachHangXuatController controller = fxmlLoader.getController();
             controller.setMainController(this);
             //tao stage moi
             Stage customerListStage = new Stage();

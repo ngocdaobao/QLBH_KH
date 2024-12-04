@@ -18,7 +18,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ResourceBundle;
 
-public class danhSachKhachHangController implements Initializable {
+public class DanhSachKhachHangController implements Initializable {
     @FXML
     protected TableView<customer> customerList;
     protected ObservableList<customer> customers = FXCollections.observableArrayList();
@@ -34,8 +34,8 @@ public class danhSachKhachHangController implements Initializable {
     @FXML
     protected TableColumn<customer, String> phoneNumberColumn;
 
-    protected basicController mainController;
-    public void setMainController(basicController basicController) {
+    protected BasicController mainController;
+    public void setMainController(BasicController basicController) {
         this.mainController = basicController;
     }
 
