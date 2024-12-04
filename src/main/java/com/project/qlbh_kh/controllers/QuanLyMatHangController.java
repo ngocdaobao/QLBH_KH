@@ -1,6 +1,6 @@
 package com.project.qlbh_kh.controllers;
 
-import com.project.qlbh_kh.entity.product;
+import com.project.qlbh_kh.entity.Product;
 import com.project.qlbh_kh.utils.JDBCUtil;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -24,14 +24,14 @@ import java.util.ResourceBundle;
 
 public class QuanLyMatHangController implements Initializable {
     @FXML private TextField searchField;
-    @FXML private TableView<product> tableView; //tableView lưu product
-    @FXML private TableColumn<product,String> productNameColumn; //tableColumn luu thuoc tinh productName co kieu du lieu la String
-    @FXML private TableColumn<product,Double> priceInColumn;
-    @FXML private TableColumn<product,Double> priceOutColumn;
-    @FXML private TableColumn<product,String> unitPriceColumn;
+    @FXML private TableView<Product> tableView; //tableView lưu product
+    @FXML private TableColumn<Product,String> productNameColumn; //tableColumn luu thuoc tinh productName co kieu du lieu la String
+    @FXML private TableColumn<Product,Double> priceInColumn;
+    @FXML private TableColumn<Product,Double> priceOutColumn;
+    @FXML private TableColumn<Product,String> unitPriceColumn;
     @FXML private Button addNewProductButton;
     @FXML private Button reloadTableButton;
-    private ObservableList<product> productList = FXCollections.observableArrayList(); //observablelist de luu nhung doi tuong duoc hien thi trong tableview
+    private ObservableList<Product> productList = FXCollections.observableArrayList(); //observablelist de luu nhung doi tuong duoc hien thi trong tableview
     @Override
     //phuong thuong initialize se duoc goi de set up cac doi tuong trong scene truoc khi hien thi tren man hinh
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -42,13 +42,13 @@ public class QuanLyMatHangController implements Initializable {
         unitPriceColumn.setCellValueFactory(new PropertyValueFactory<>("unit_sold"));
         //them su kien chinh sua mat hang cho tableview
         tableView.setOnMouseClicked(mouseEvent -> {
-            product selectedProduct = tableView.getSelectionModel().getSelectedItem();
+            Product selectedProduct = tableView.getSelectionModel().getSelectedItem();
             modifyProduct(selectedProduct);
         });
         //loc san pham trong tableview khi tuong tac voi searchfield
         searchField.textProperty().addListener(((observableValue, oldValue, newValue) -> {
-            tableView.setItems(productList.filtered(product -> {
-                return product.getProd_name().toLowerCase().contains(newValue);
+            tableView.setItems(productList.filtered(Product -> {
+                return Product.getProd_name().toLowerCase().contains(newValue);
             }));
         }));
         //hien thi tat ca mat hang
@@ -72,7 +72,7 @@ public class QuanLyMatHangController implements Initializable {
             //lay cac ban ghi trong truy van sql
             while(resultSet.next())
             {
-                productList.add(new product(
+                productList.add(new Product(
                         resultSet.getInt(1),
                         resultSet.getString(2),
                         resultSet.getDouble(3),
@@ -115,7 +115,7 @@ public class QuanLyMatHangController implements Initializable {
         }
     }
     //mo cua so phu de chinh sua mat hang
-    public void modifyProduct(product selectedProduct)
+    public void modifyProduct(Product selectedProduct)
     {
         System.out.println("modify");
         try

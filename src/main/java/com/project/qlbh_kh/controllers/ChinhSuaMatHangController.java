@@ -1,6 +1,6 @@
 package com.project.qlbh_kh.controllers;
 
-import com.project.qlbh_kh.entity.product;
+import com.project.qlbh_kh.entity.Product;
 import com.project.qlbh_kh.utils.JDBCUtil;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -17,12 +17,12 @@ public class ChinhSuaMatHangController {
     @FXML private Label productNameLabel;
     @FXML private Button confirmButton;
     private QuanLyMatHangController mainController;
-    private product selectedProduct;
+    private Product selectedProduct;
     public void setMainController(QuanLyMatHangController quanLyMatHangController)
     {
         this.mainController = quanLyMatHangController;
     }
-    public void setSelectedProduct(product selectedProduct)
+    public void setSelectedProduct(Product selectedProduct)
     {
         this.selectedProduct = selectedProduct;
         productNameLabel.setText(selectedProduct.getProd_name());

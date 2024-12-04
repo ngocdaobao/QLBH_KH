@@ -1,6 +1,6 @@
 package com.project.qlbh_kh.controllers;
 
-import com.project.qlbh_kh.entity.order_detail;
+import com.project.qlbh_kh.entity.Order_detail;
 import com.project.qlbh_kh.utils.JDBCUtil;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -26,12 +26,12 @@ public class HienThiHoaDonController implements Initializable {
     @FXML private Label email;
     @FXML private Label receiverNameLabel;
     @FXML private Label totalPaymentLabel;
-    @FXML private TableView<order_detail> tableView;
-    @FXML private TableColumn<order_detail,String> productNameColumn;
-    @FXML private TableColumn<order_detail,Integer> quantityColumn;
-    @FXML private TableColumn<order_detail,Double> unitPriceColumn;
-    @FXML private TableColumn<order_detail,Double> totalAmountColumn;
-    ObservableList<order_detail> orderDetails = FXCollections.observableArrayList();
+    @FXML private TableView<Order_detail> tableView;
+    @FXML private TableColumn<Order_detail,String> productNameColumn;
+    @FXML private TableColumn<Order_detail,Integer> quantityColumn;
+    @FXML private TableColumn<Order_detail,Double> unitPriceColumn;
+    @FXML private TableColumn<Order_detail,Double> totalAmountColumn;
+    ObservableList<Order_detail> orderDetails = FXCollections.observableArrayList();
     private String operation;
     private int id;
     //public void setOperation(String operation) { this.operation = operation; orderTypeLabel.setText("Hóa đơn mua vào");}
@@ -59,7 +59,7 @@ public class HienThiHoaDonController implements Initializable {
             ResultSet resultSet = preparedStatement.executeQuery();
             if (resultSet.next())
             {
-                orderDetails.add(new order_detail(
+                orderDetails.add(new Order_detail(
                         resultSet.getString(1),
                         resultSet.getInt(2),
                         resultSet.getDouble(3),
@@ -79,7 +79,7 @@ public class HienThiHoaDonController implements Initializable {
             }
             while(resultSet.next())
             {
-                orderDetails.add(new order_detail(
+                orderDetails.add(new Order_detail(
                         resultSet.getString(1),
                         resultSet.getInt(2),
                         resultSet.getDouble(3),

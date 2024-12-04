@@ -1,6 +1,6 @@
 package com.project.qlbh_kh.controllers;
 
-import com.project.qlbh_kh.entity.customer;
+import com.project.qlbh_kh.entity.Customer;
 import com.project.qlbh_kh.utils.JDBCUtil;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -20,19 +20,19 @@ import java.util.ResourceBundle;
 
 public class DanhSachKhachHangController implements Initializable {
     @FXML
-    protected TableView<customer> customerList;
-    protected ObservableList<customer> customers = FXCollections.observableArrayList();
+    protected TableView<Customer> customerList;
+    protected ObservableList<Customer> Customers = FXCollections.observableArrayList();
     @FXML
-    protected TableColumn<customer, String> addressColumn;
+    protected TableColumn<Customer, String> addressColumn;
 
     @FXML
-    protected TableColumn<customer, String> customerNameColumn;
+    protected TableColumn<Customer, String> customerNameColumn;
 
     @FXML
     protected TextField customerNameField;
 
     @FXML
-    protected TableColumn<customer, String> phoneNumberColumn;
+    protected TableColumn<Customer, String> phoneNumberColumn;
 
     protected BasicController mainController;
     public void setMainController(BasicController basicController) {
@@ -49,8 +49,8 @@ public class DanhSachKhachHangController implements Initializable {
         loadCustomerList();
         //cai dat bo loc tim kiem theo ten KH
         customerNameField.textProperty().addListener(((observableValue, oldValue, newValue) -> {
-            customerList.setItems(customers.filtered(customer -> {
-                String name = customer.getName();
+            customerList.setItems(Customers.filtered(Customer -> {
+                String name = Customer.getName();
                 System.out.println(name);
                 return name.toLowerCase().contains(newValue.toLowerCase());
             }));
@@ -78,9 +78,9 @@ public class DanhSachKhachHangController implements Initializable {
                 String name = resultSet.getString(2);
                 String address = resultSet.getString(3);
                 String phone_number = resultSet.getString(4);
-                customers.add(new customer(id,name,address,phone_number));
+                Customers.add(new Customer(id,name,address,phone_number));
             }
-            customerList.setItems(customers);
+            customerList.setItems(Customers);
         } catch (Exception e)
         {
             e.printStackTrace();

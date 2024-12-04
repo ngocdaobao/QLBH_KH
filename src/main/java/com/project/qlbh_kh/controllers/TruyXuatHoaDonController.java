@@ -1,6 +1,6 @@
 package com.project.qlbh_kh.controllers;
 
-import com.project.qlbh_kh.entity.order_manager;
+import com.project.qlbh_kh.entity.Order_manager;
 import com.project.qlbh_kh.utils.JDBCUtil;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -22,14 +22,14 @@ import java.sql.ResultSet;
 import java.util.ResourceBundle;
 
 public class TruyXuatHoaDonController extends BasicController {
-    @FXML private TableView<order_manager> tableView;
-    @FXML private TableColumn<order_manager,Integer> idColumn;
-    @FXML private TableColumn<order_manager,String> customerNameColumn;
-    @FXML private TableColumn<order_manager,Double> totalPaymentColumn;
-    @FXML private TableColumn<order_manager,String> receiverNameColumn;
-    @FXML private TableColumn<order_manager,String> dateColumn;
-    @FXML private TableColumn<order_manager,String> operationColumn;
-    ObservableList<order_manager> data = FXCollections.observableArrayList();
+    @FXML private TableView<Order_manager> tableView;
+    @FXML private TableColumn<Order_manager,Integer> idColumn;
+    @FXML private TableColumn<Order_manager,String> customerNameColumn;
+    @FXML private TableColumn<Order_manager,Double> totalPaymentColumn;
+    @FXML private TableColumn<Order_manager,String> receiverNameColumn;
+    @FXML private TableColumn<Order_manager,String> dateColumn;
+    @FXML private TableColumn<Order_manager,String> operationColumn;
+    ObservableList<Order_manager> data = FXCollections.observableArrayList();
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle)
     {
@@ -70,7 +70,7 @@ public class TruyXuatHoaDonController extends BasicController {
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next())
             {
-                data.add(new order_manager(
+                data.add(new Order_manager(
                         resultSet.getInt(1),
                         resultSet.getString(2),
                         resultSet.getDouble(3),
@@ -86,7 +86,7 @@ public class TruyXuatHoaDonController extends BasicController {
         }
         //chon hoa don
         tableView.setOnMouseClicked(mouseEvent -> {
-            order_manager selectedItem = tableView.getSelectionModel().getSelectedItem();
+            Order_manager selectedItem = tableView.getSelectionModel().getSelectedItem();
             if (selectedItem.getOperation().equals("Nhập"))  showOrder(selectedItem.getId(),"in");
             else showOrder(selectedItem.getId(),"out");
         });
@@ -113,7 +113,7 @@ public class TruyXuatHoaDonController extends BasicController {
                 data.clear();
                 while(resultSet.next())
                 {
-                    data.add(new order_manager(
+                    data.add(new Order_manager(
                             resultSet.getInt(1),
                             resultSet.getString(2),
                             resultSet.getDouble(3),
@@ -141,7 +141,7 @@ public class TruyXuatHoaDonController extends BasicController {
                 data.clear();
                 while(resultSet.next())
                 {
-                    data.add(new order_manager(
+                    data.add(new Order_manager(
                             resultSet.getInt(1),
                             resultSet.getString(2),
                             resultSet.getDouble(3),
@@ -169,7 +169,7 @@ public class TruyXuatHoaDonController extends BasicController {
                 data.clear();
                 while(resultSet.next())
                 {
-                    data.add(new order_manager(
+                    data.add(new Order_manager(
                             resultSet.getInt(1),
                             resultSet.getString(2),
                             resultSet.getDouble(3),

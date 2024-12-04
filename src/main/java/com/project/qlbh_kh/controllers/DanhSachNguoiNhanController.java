@@ -1,5 +1,5 @@
 package com.project.qlbh_kh.controllers;
-import com.project.qlbh_kh.entity.receiver;
+import com.project.qlbh_kh.entity.Receiver;
 import com.project.qlbh_kh.utils.JDBCUtil;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -19,19 +19,19 @@ import java.util.ResourceBundle;
 
 public class DanhSachNguoiNhanController implements  Initializable{
     @FXML
-    protected TableView<receiver> receiverList;
-    protected ObservableList<receiver> receivers = FXCollections.observableArrayList();
+    protected TableView<Receiver> receiverList;
+    protected ObservableList<Receiver> Receivers = FXCollections.observableArrayList();
     @FXML
-    protected TableColumn<receiver, String> addressColumn;
+    protected TableColumn<Receiver, String> addressColumn;
 
     @FXML
-    protected TableColumn<receiver, String> receiverNameColumn;
+    protected TableColumn<Receiver, String> receiverNameColumn;
 
     @FXML
     protected TextField receiverNameField;
 
     @FXML
-    protected TableColumn<receiver, String> phoneNumberColumn;
+    protected TableColumn<Receiver, String> phoneNumberColumn;
 
     protected BasicController mainController;
     public void setMainController(BasicController basicController) {
@@ -48,8 +48,8 @@ public class DanhSachNguoiNhanController implements  Initializable{
         loadReceiverList();
         //cai dat bo loc tim kiem theo ten KH
         receiverNameField.textProperty().addListener(((observableValue, oldValue, newValue) -> {
-            receiverList.setItems(receivers.filtered(receiver -> {
-                String name = receiver.getName();
+            receiverList.setItems(Receivers.filtered(Receiver -> {
+                String name = Receiver.getName();
                 System.out.println(name);
                 return name.toLowerCase().contains(newValue.toLowerCase());
             }));
@@ -77,9 +77,9 @@ public class DanhSachNguoiNhanController implements  Initializable{
                 String name = resultSet.getString(2);
                 String address = resultSet.getString(3);
                 String phone_number = resultSet.getString(4);
-                receivers.add(new receiver(id,name,address,phone_number));
+                Receivers.add(new Receiver(id,name,address,phone_number));
             }
-            receiverList.setItems(receivers);
+            receiverList.setItems(Receivers);
         } catch (Exception e)
         {
             e.printStackTrace();

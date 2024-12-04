@@ -1,6 +1,6 @@
 package com.project.qlbh_kh.controllers;
 
-import com.project.qlbh_kh.entity.product_manager;
+import com.project.qlbh_kh.entity.Product_manager;
 import com.project.qlbh_kh.utils.JDBCUtil;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -22,15 +22,15 @@ import java.sql.ResultSet;
 import java.util.ResourceBundle;
 
 public class QuanLyHangXuatController extends BasicController {
-    @FXML private TableView<product_manager> tableView;
-    @FXML private TableColumn<product_manager,Integer> idColumn;
-    @FXML private TableColumn<product_manager,String> customerNameColumn;
-    @FXML private TableColumn<product_manager,String> prodNameColumn;
-    @FXML private TableColumn<product_manager,Integer> quantityColumn;
-    @FXML private TableColumn<product_manager,Integer> unitPriceColumn;
-    @FXML private TableColumn<product_manager,Integer> totalAmountColumn;
-    @FXML private TableColumn<product_manager,String> dateColumn;
-    ObservableList<product_manager> data = FXCollections.observableArrayList();
+    @FXML private TableView<Product_manager> tableView;
+    @FXML private TableColumn<Product_manager,Integer> idColumn;
+    @FXML private TableColumn<Product_manager,String> customerNameColumn;
+    @FXML private TableColumn<Product_manager,String> prodNameColumn;
+    @FXML private TableColumn<Product_manager,Integer> quantityColumn;
+    @FXML private TableColumn<Product_manager,Integer> unitPriceColumn;
+    @FXML private TableColumn<Product_manager,Integer> totalAmountColumn;
+    @FXML private TableColumn<Product_manager,String> dateColumn;
+    ObservableList<Product_manager> data = FXCollections.observableArrayList();
     @FXML public void resetCustomer() {this.selectedCustomerId = 0; this.customerNameField.clear();}
     @FXML public void resetProduct() {this.selectedProductId = 0; this.productField.clear();}
     @Override
@@ -56,7 +56,7 @@ public class QuanLyHangXuatController extends BasicController {
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next())
             {
-                data.add(new product_manager(
+                data.add(new Product_manager(
                         resultSet.getInt(1),
                         resultSet.getString(2),
                         resultSet.getString(3),
@@ -73,7 +73,7 @@ public class QuanLyHangXuatController extends BasicController {
         }
         //chon hoa don
         tableView.setOnMouseClicked(mouseEvent -> {
-            product_manager selectedItem = tableView.getSelectionModel().getSelectedItem();
+            Product_manager selectedItem = tableView.getSelectionModel().getSelectedItem();
             showOrder(selectedItem.getId(),"out");
         });
 
@@ -97,7 +97,7 @@ public class QuanLyHangXuatController extends BasicController {
             data.clear();
             while (resultSet.next())
             {
-                data.add(new product_manager(
+                data.add(new Product_manager(
                         resultSet.getInt(1),
                         resultSet.getString(2),
                         resultSet.getString(3),

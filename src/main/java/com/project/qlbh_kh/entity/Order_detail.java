@@ -1,6 +1,6 @@
 package com.project.qlbh_kh.entity;
 
-public class order_detail {
+public class Order_detail {
     private String prod_name;
     private int quantity;
     private double unit_price;
@@ -10,7 +10,7 @@ public class order_detail {
     private String email;
     private String phone_number;
     private double total_payment;
-    public order_detail(String prod_name, int quantity, double unit_price, double total_amount)
+    public Order_detail(String prod_name, int quantity, double unit_price, double total_amount)
     {
         this.prod_name = prod_name;
         this.quantity = quantity;

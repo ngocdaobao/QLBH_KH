@@ -1,6 +1,6 @@
 package com.project.qlbh_kh.controllers;
 
-import com.project.qlbh_kh.entity.product;
+import com.project.qlbh_kh.entity.Product;
 import com.project.qlbh_kh.utils.JDBCUtil;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -23,8 +23,8 @@ public class DanhSachTenSanPhamController implements Initializable {
     private TextField productNameField;
 
     @FXML
-    private ListView<product> productList;
-    ObservableList<product> products = FXCollections.observableArrayList();
+    private ListView<Product> productList;
+    ObservableList<Product> Products = FXCollections.observableArrayList();
 
     @FXML
     void filterProductName(ActionEvent event) {
@@ -42,7 +42,7 @@ public class DanhSachTenSanPhamController implements Initializable {
         loadProductName();
         //filter theo ten mat hang
         productNameField.textProperty().addListener(((observableValue, oldValue, newValue) -> {
-            productList.setItems(products.filtered(product -> product.getProd_name().toLowerCase().contains(newValue.toLowerCase())));
+            productList.setItems(Products.filtered(Product -> Product.getProd_name().toLowerCase().contains(newValue.toLowerCase())));
         }));
         //chon mat hang
         productList.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, selectedProduct) -> {
@@ -62,9 +62,9 @@ public class DanhSachTenSanPhamController implements Initializable {
             Connection connection = JDBCUtil.getConnection();
             PreparedStatement stmt = connection.prepareStatement(sql);
             ResultSet resultSet = stmt.executeQuery();
-            while (resultSet.next()) products.add(new product(resultSet.getInt(1),
+            while (resultSet.next()) Products.add(new Product(resultSet.getInt(1),
                     resultSet.getString(2)));
-            productList.setItems(products);
+            productList.setItems(Products);
         } catch (Exception e)
         {
             e.printStackTrace();

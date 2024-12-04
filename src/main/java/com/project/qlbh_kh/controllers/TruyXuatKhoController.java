@@ -1,6 +1,6 @@
 package com.project.qlbh_kh.controllers;
 
-import com.project.qlbh_kh.entity.stock_manager;
+import com.project.qlbh_kh.entity.Stock_manager;
 import com.project.qlbh_kh.utils.JDBCUtil;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -16,13 +16,13 @@ import java.sql.ResultSet;
 import java.util.ResourceBundle;
 
 public class TruyXuatKhoController extends BasicController {
-    @FXML private TableView<stock_manager> tableView;
-    @FXML private TableColumn<stock_manager, String> orderIdColumn;
-    @FXML private TableColumn<stock_manager, String> productColumn;
-    @FXML private TableColumn<stock_manager, Integer> quantityColumn;
-    @FXML private TableColumn<stock_manager, String> dateColumn;
-    @FXML private TableColumn<stock_manager, String> operationColumn;
-    ObservableList<stock_manager> data = FXCollections.observableArrayList();
+    @FXML private TableView<Stock_manager> tableView;
+    @FXML private TableColumn<Stock_manager, String> orderIdColumn;
+    @FXML private TableColumn<Stock_manager, String> productColumn;
+    @FXML private TableColumn<Stock_manager, Integer> quantityColumn;
+    @FXML private TableColumn<Stock_manager, String> dateColumn;
+    @FXML private TableColumn<Stock_manager, String> operationColumn;
+    ObservableList<Stock_manager> data = FXCollections.observableArrayList();
     @FXML
     public void reset()
     {
@@ -45,7 +45,7 @@ public class TruyXuatKhoController extends BasicController {
              PreparedStatement stmt = conn.prepareStatement(query);
              ResultSet rs = stmt.executeQuery()) {
             while (rs.next()) {
-                data.add(new stock_manager(
+                data.add(new Stock_manager(
                         rs.getInt(1),
                         rs.getString(2),
                         rs.getInt(3),
@@ -59,7 +59,7 @@ public class TruyXuatKhoController extends BasicController {
         }
         //chon hoa don
         tableView.setOnMouseClicked(mouseEvent -> {
-            stock_manager selectedItem = tableView.getSelectionModel().getSelectedItem();
+            Stock_manager selectedItem = tableView.getSelectionModel().getSelectedItem();
             if (selectedItem.getOperation().equals("Nhập"))  showOrder(selectedItem.getOrderId(),"in");
             else showOrder(selectedItem.getOrderId(),"out");
         });
@@ -87,7 +87,7 @@ public class TruyXuatKhoController extends BasicController {
                 data.clear();
                 while (resultSet.next())
                 {
-                    data.add(new stock_manager(
+                    data.add(new Stock_manager(
                             resultSet.getInt(1),
                             resultSet.getString(2),
                             resultSet.getInt(3),
@@ -114,7 +114,7 @@ public class TruyXuatKhoController extends BasicController {
                 data.clear();
                 while (resultSet.next())
                 {
-                    data.add(new stock_manager(
+                    data.add(new Stock_manager(
                             resultSet.getInt(1),
                             resultSet.getString(2),
                             resultSet.getInt(3),
@@ -141,7 +141,7 @@ public class TruyXuatKhoController extends BasicController {
                 data.clear();
                 while (resultSet.next())
                 {
-                    data.add(new stock_manager(
+                    data.add(new Stock_manager(
                             resultSet.getInt(1),
                             resultSet.getString(2),
                             resultSet.getInt(3),

@@ -1,6 +1,6 @@
 package com.project.qlbh_kh.controllers;
 
-import com.project.qlbh_kh.entity.customer;
+import com.project.qlbh_kh.entity.Customer;
 import com.project.qlbh_kh.utils.JDBCUtil;
 import javafx.fxml.Initializable;
 
@@ -24,9 +24,9 @@ public class DanhSachKhachHangXuatController extends DanhSachKhachHangController
                 String name = resultSet.getString(2);
                 String address = resultSet.getString(3);
                 String phone_number = resultSet.getString(4);
-                customers.add(new customer(id,name,address,phone_number));
+                Customers.add(new Customer(id,name,address,phone_number));
             }
-            customerList.setItems(customers);
+            customerList.setItems(Customers);
         } catch (Exception e)
         {
             e.printStackTrace();

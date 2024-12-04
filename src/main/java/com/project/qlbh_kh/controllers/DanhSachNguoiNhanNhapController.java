@@ -1,6 +1,6 @@
 package com.project.qlbh_kh.controllers;
 
-import com.project.qlbh_kh.entity.receiver;
+import com.project.qlbh_kh.entity.Receiver;
 import com.project.qlbh_kh.utils.JDBCUtil;
 import javafx.fxml.Initializable;
 
@@ -24,9 +24,9 @@ public class DanhSachNguoiNhanNhapController extends DanhSachNguoiNhanController
                 String name = resultSet.getString(2);
                 String address = resultSet.getString(3);
                 String phone_number = resultSet.getString(4);
-                receivers.add(new receiver(id,name,address,phone_number));
+                Receivers.add(new Receiver(id,name,address,phone_number));
             }
-            receiverList.setItems(receivers);
+            receiverList.setItems(Receivers);
         } catch (Exception e)
         {
             e.printStackTrace();
